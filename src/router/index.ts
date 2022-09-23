@@ -1,20 +1,25 @@
-import { createWebHistory, createRouter } from "vue-router";
-import { routers } from "./routers";
-import { scrollBehaviorFn } from "./scrollBehavior";
-import type { App } from "vue";
-import { createGuard } from "./guard";
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+
+const routes: RouteRecordRaw[] = [
+  {
+    path: "/",
+    redirect: "./index",
+  },
+  {
+    path: "/index",
+    name: "index",
+    component: () => import("view/index/index.vue"),
+    meta: {
+      title: "This is a demo",
+      description: "This is a demo",
+      keywords: "This is a demo",
+    },
+  },
+];
 
 const router = createRouter({
-  history: createWebHistory(),
-  routes: routers,
-  strict: true,
-  // 管理组件滚动行为
-  scrollBehavior: scrollBehaviorFn
+  history: createWebHistory("/"),
+  routes,
 });
-
-export function setupRouter(app: App<Element>) {
-  app.use(router);
-  createGuard(router);
-}
 
 export default router;

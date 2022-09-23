@@ -1,15 +1,8 @@
-import { createApp } from "vue";
-import App from "./App.vue";
-import router, { setupRouter } from "./router";
-// import './type/global';
-import { AppStore } from "./store/modules/app";
-
-const app = createApp(App);
-
-setupRouter(app);
-
-AppStore.commitSysNo('VITE_APP');
-
-router.isReady().then(() => {
-  app.mount("#app");
-});
+import { createApp } from 'vue'
+import router from './router/intercept'
+import 'lib-flexible/flexible'//postcss-pxtorem
+import 'amfe-flexible'
+import App from './App.vue'
+import store from './store'
+const app = createApp(App)
+app.use(router).use(store).mount('#app');
