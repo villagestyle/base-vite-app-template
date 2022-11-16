@@ -9,12 +9,16 @@
   },
   "dependencies": {
     "@foxit/v-axios": "^1.0.5",
+    "amfe-flexible": "^2.2.1",
+    "lib-flexible": "^0.3.2",
     "pinia": "^2.0.11",
+    "vant": "^3.6.5",
     "vue": "^3.2.25",
     "vue-router": "^4.0.13",
     "vue-types": "^3.0.2"
   },
   "devDependencies": {
+    "@types/qs": "^6.9.7",
     "@vitejs/plugin-vue": "^2.2.0",
     "babel-eslint": "^10.0.3",
     "cz-conventional-changelog": "^3.3.0",

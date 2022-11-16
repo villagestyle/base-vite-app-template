@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import { scrollBehaviorFn } from "./scrollBehavior";
 
 const routes: RouteRecordRaw[] = [
   {
@@ -13,6 +14,8 @@ const routes: RouteRecordRaw[] = [
       title: "This is a demo",
       description: "This is a demo",
       keywords: "This is a demo",
+      top: 0,
+      keepAlive: false
     },
   },
 ];
@@ -20,6 +23,7 @@ const routes: RouteRecordRaw[] = [
 const router = createRouter({
   history: createWebHistory("/"),
   routes,
+  scrollBehavior: scrollBehaviorFn
 });
 
 export default router;

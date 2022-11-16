@@ -5,7 +5,7 @@
 </template>
 <script setup lang="ts">
 import themeVars from "./plugins/vant-configProvider-config";
-import useMeta from "./hook/useMeta/useMeta";
+import useMeta from "./hook/useMeta";
 useMeta();
 </script>
 <style>

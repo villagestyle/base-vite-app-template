@@ -8,11 +8,7 @@ import { createHtmlPlugin } from "vite-plugin-html";
 import externalGlobals from "rollup-plugin-external-globals";
 import { env } from "process";
 
-// const isProd = env.NODE_ENV === "production";
-
-const isProd = true;
-
-console.log("isProd", isProd);
+const isProd = env.NODE_ENV === "production";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -48,9 +44,7 @@ export default defineConfig({
                 js: [
                   "https://cdn.jsdelivr.net/npm/vue@3.2.25/dist/vue.global.prod.js",
                   "https://cdn.jsdelivr.net/npm/vue-demi@0.13.7",
-                  "https://cdn.jsdelivr.net/npm/vue-router@4.0.10/dist/vue-router.global.prod.js",
                   "https://cdn.bootcdn.net/ajax/libs/pinia/2.0.14/pinia.iife.prod.min.js",
-                  "https://cdn.jsdelivr.net/npm/vant@next/lib/vant.min.js",
                   "https://cdn.bootcdn.net/ajax/libs/axios/0.27.2/axios.js"
                 ]
               }
@@ -150,7 +144,7 @@ export default defineConfig({
     rollupOptions: {
       // 忽略打包
       external: isProd
-        ? ["vue", "pinia", "vue-router", /vant/, "vue-demi", "axios"]
+        ? ["vue", "pinia", "vue-demi", "axios"]
         : [],
       plugins: [
         externalGlobals({
