@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@types/qs": "^6.9.7",
+    "@typescript-eslint/parser": "^5.43.0",
     "@vitejs/plugin-vue": "^2.2.0",
     "babel-eslint": "^10.0.3",
     "cz-conventional-changelog": "^3.3.0",

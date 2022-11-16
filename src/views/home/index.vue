@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>{{ pageName }}</h3>
-    <input type="text" v-model:value="count">
+    <input type="text" v-model="count">
   </div>
 </template>
 
@@ -24,7 +24,7 @@ export default defineComponent({
     watch(count, (newVal, oldVal) => {
       console.log(`the new value is: ${newVal}`);
     });
-    
+
     return {
       pageName
     }

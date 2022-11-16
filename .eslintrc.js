@@ -3,7 +3,7 @@
 module.exports = {
   root: true,
   parserOptions: {
-    parser: "babel-eslint"
+    parser: "@typescript-eslint/parser"
   },
   env: {
     browser: true,
@@ -17,7 +17,7 @@ module.exports = {
     "plugin:prettier/recommended"
   ],
   // required to lint *.vue files
-  plugins: ["vue", "prettier"],
+  plugins: ["vue", "prettier", "@typescript-eslint"],
   // add your custom rules here
   rules: {
     // "prettier/prettier": "error",
