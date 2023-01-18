@@ -2,6 +2,7 @@
 
 module.exports = {
   root: true,
+  parser: "vue-eslint-parser",
   parserOptions: {
     parser: "@typescript-eslint/parser"
   },
@@ -10,24 +11,16 @@ module.exports = {
     es6: true
   },
   extends: [
+    "eslint:recommended",
     // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
     // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
-    "plugin:vue/essential",
-    // 'plugin:vue/strongly-recommended',
+    "plugin:vue/vue3-recommended",
     "plugin:prettier/recommended"
   ],
   // required to lint *.vue files
-  plugins: ["vue", "prettier", "@typescript-eslint"],
+  plugins: ["@typescript-eslint", "vue", "prettier"],
   // add your custom rules here
   rules: {
-    // "prettier/prettier": "error",
-    "prettier/prettier": [
-      "error",
-      {},
-      {
-        usePrettierrc: false
-      }
-    ],
     // allow async-await
     "generator-star-spacing": "off",
     //禁止多余的 return 语句
@@ -147,7 +140,7 @@ module.exports = {
     //箭头函数体周围需要大括号
     "arrow-body-style": 1,
     //强制执行驼峰命名约定
-    camelcase: 2,
+    "camelcase": 2,
     //禁止Array构造函数
     "no-array-constructor": 2,
     //禁止 `Object` 构造函数

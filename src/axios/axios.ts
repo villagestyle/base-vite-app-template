@@ -1,9 +1,5 @@
-import { VAxios } from "@foxit/v-axios";
+import axios from "axios";
 
-const instance = new VAxios({
-  vConfig: {
-    showLoading: true
-  }
-});
+const instance = axios.create();
 
 export default instance;

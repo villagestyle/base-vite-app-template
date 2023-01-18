@@ -6,6 +6,7 @@ import { VantResolver } from "unplugin-vue-components/resolvers";
 import styleImport, { VantResolve } from "vite-plugin-style-import";
 import { createHtmlPlugin } from "vite-plugin-html";
 import externalGlobals from "rollup-plugin-external-globals";
+import commonjs from "@rollup/plugin-commonjs";
 import { env } from "process";
 
 const isProd = env.NODE_ENV === "production";
@@ -18,13 +19,14 @@ console.log("执行打包编译，isProd：", isProd);
 export default defineConfig({
   // base: './', // 采用hash路由，并且不放在nginx根目录形式需要配置
   plugins: [
+    commonjs(),
     vue(),
     AutoImport({
       // 这里除了引入 vue 以外还可以引入pinia、vue-router、vueuse等，
       // 甚至你还可以使用自定义的配置规则，见 https://github.com/antfu/unplugin-auto-import#configuration
       imports: ["vue", "vue-router"],
       // 第三方组件库的解析器
-      resolvers: [VantResolver()]
+      resolvers: [VantResolver()],
     }),
     ViteComponents({
       // dirs 指定组件所在位置，默认为 src/components
@@ -33,11 +35,11 @@ export default defineConfig({
       // 配置需要将哪些后缀类型的文件进行自动按需引入
       extensions: ["vue"],
       //解析的 UI 组件库，
-      resolvers: [VantResolver({ importStyle: true })]
+      resolvers: [VantResolver({ importStyle: true })],
     }),
     //样式引入
     styleImport({
-      resolves: [VantResolve()]
+      resolves: [VantResolve()],
     }),
     createHtmlPlugin({
       inject: {
@@ -51,13 +53,13 @@ export default defineConfig({
                   "https://cdn.jsdelivr.net/npm/vue-router@4.0.10/dist/vue-router.global.prod.js",
                   "https://cdn.bootcdn.net/ajax/libs/pinia/2.0.14/pinia.iife.prod.min.js",
                   "https://cdn.jsdelivr.net/npm/vant@next/lib/vant.min.js",
-                  "https://cdn.bootcdn.net/ajax/libs/axios/0.27.2/axios.js"
-                ]
+                  "https://cdn.bootcdn.net/ajax/libs/axios/0.27.2/axios.js",
+                ],
               }
-            : {}
-        }
-      }
-    })
+            : {},
+        },
+      },
+    }),
   ], //注册插件 vue()  多个用，隔开
 
   server: {
@@ -71,7 +73,7 @@ export default defineConfig({
     strictPort: true, // 设为true时，若端口已被占用则会直接退出，而不是尝试下一个可用端口。
     https: false, // 启用 TLS + HTTP/2。注意：当 server.proxy 选项 也被使用时，将会仅使用 TLS。这个值也可以是一个传递给 https.createServer() 的 选项对象。
     cors: true, // 为开发服务器配置 CORS。默认启用并允许任何源，传递一个 选项对象 来调整行为或设为 false 表示禁用。
-    force: true // 设置为 true 强制使依赖预构建。
+    force: true, // 设置为 true 强制使依赖预构建。
     // 自定义代理规则
     // proxy: {
     //   '/api': {
@@ -91,17 +93,17 @@ export default defineConfig({
       api: "/src/api",
       assets: "/src/assets",
       cpnts: "/src/components",
-      view: "/src/view"
-    }
+      view: "/src/view",
+    },
   },
 
   //全局样式配置
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@use './src/plugins/vant-variables.scss' as *;` //此处引入必须添加  as *  添加公共样式sass变量
-      }
-    }
+        additionalData: `@use './src/plugins/vant-variables.scss' as *;`, //此处引入必须添加  as *  添加公共样式sass变量
+      },
+    },
   },
 
   //构建选项
@@ -135,27 +137,26 @@ export default defineConfig({
     //传递给 Terser 的更多 minify 选项。
     terserOptions: {
       compress: {
+        /* eslint-disable camelcase */
         //生产环境时移除console
         drop_console: true, //打包时删除console
         drop_debugger: true, //打包时删除 debugger
-        pure_funcs: ["console.log"]
+        pure_funcs: ["console.log"],
       },
       output: {
         // 去掉注释内容
-        comments: true
-      }
+        comments: true,
+      },
     },
     //自定义底层的 Rollup 打包配置
     // 将文件分开打包
     rollupOptions: {
       // 忽略打包
-      external: isProd
-        ? ["vue", "pinia", "vue-router", /vant/, "axios"]
-        : [],
+      external: isProd ? ["vue", "pinia", "vue-router", /vant/, "axios"] : [],
       plugins: [
         externalGlobals({
           // "vue-demi": "VueDemi"
-        })
+        }),
       ],
       output: {
         manualChunks(id) {
@@ -170,8 +171,8 @@ export default defineConfig({
         },
         chunkFileNames: "vendors/[name]-[hash].js", // 三方库文件
         entryFileNames: "static/js/[name]-[hash].js", // entry js文件
-        assetFileNames: "[ext]/[name]-[hash].[ext]" // css文件
-      }
-    }
-  }
+        assetFileNames: "[ext]/[name]-[hash].[ext]", // css文件
+      },
+    },
+  },
 });
